@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: /Users/kristinbingham/Desktop/doc-test/test.js</title>
+    
+    
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Demo","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"","description":"","keyword":""},"linenums":false};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Demo</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="ig.EntityCheckpoint">
+            <span class="title">
+                <a href="ig.EntityCheckpoint.html">ig.EntityCheckpoint</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ig.EntityCheckpoint#duration"><a href="ig.EntityCheckpoint.html#duration">duration</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#once"><a href="ig.EntityCheckpoint.html#once">once</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#respawnDelay"><a href="ig.EntityCheckpoint.html#respawnDelay">respawnDelay</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#restorative"><a href="ig.EntityCheckpoint.html#restorative">restorative</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#restorativeSpawn"><a href="ig.EntityCheckpoint.html#restorativeSpawn">restorativeSpawn</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#showSpawn"><a href="ig.EntityCheckpoint.html#showSpawn">showSpawn</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#spawnAtRandomPosition"><a href="ig.EntityCheckpoint.html#spawnAtRandomPosition">spawnAtRandomPosition</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#spawnAtSide"><a href="ig.EntityCheckpoint.html#spawnAtSide">spawnAtSide</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#suicidal"><a href="ig.EntityCheckpoint.html#suicidal">suicidal</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#triggerable"><a href="ig.EntityCheckpoint.html#triggerable">triggerable</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#triggerAfterDelay"><a href="ig.EntityCheckpoint.html#triggerAfterDelay">triggerAfterDelay</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#wait"><a href="ig.EntityCheckpoint.html#wait">wait</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ig.EntityCheckpoint#activate"><a href="ig.EntityCheckpoint.html#activate">activate</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#initTypes"><a href="ig.EntityCheckpoint.html#initTypes">initTypes</a></li>
+            
+                <li data-name="ig.EntityCheckpoint#spawned"><a href="ig.EntityCheckpoint.html#spawned">spawned</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="test.js.html">Source: /Users/kristinbingham/Desktop/doc-test/test.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>ig.module(
+    'plusplus.entities.checkpoint'
+)
+    .requires(
+        'plusplus.core.config',
+        'plusplus.abstractities.spawner',
+        'plusplus.abstractities.character',
+        'plusplus.helpers.utils'
+)
+    .defines(function() {
+        "use strict";
+
+        var _c = ig.CONFIG;
+        var _ut = ig.utils;
+
+        /**
+         * Entity that triggers an update of an entity's reset state and spawns it upon death.
+         * @class
+         * @extends ig.Spawner
+         * @memberof ig
+         * @author Collin Hover - collinhover.com
+         **/
+        ig.EntityCheckpoint = ig.global.EntityCheckpoint = ig.Spawner.extend( /**@lends ig.EntityCheckpoint.prototype */ {
+
+            // editor properties
+
+            _wmBoxColor: 'rgba( 0, 255, 125, 0.7 )',
+
+            /**
+             * Checkpoint is spawner but should be triggerable by collision.
+             * @override
+             * @default
+             */
+            triggerable: true,
+
+            /**
+             * Checkpoints should not trigger after delay.
+             * @override
+             * @default
+             */
+            triggerAfterDelay: false,
+
+            /**
+             * Whether checkpoint will restore entity stats.
+             * @type Boolean
+             * @default
+             */
+            restorative: false,
+
+            /**
+             * Whether checkpoint will restore entity stats after spawned
+             * @type Boolean
+             * @default
+             */
+            restorativeSpawn: true,
+
+            /**
+             * Checkpoints should transition camera back to self before respawning to show respawn.
+             * @type Boolean
+             * @default
+             */
+            showSpawn: true,
+
+            /**
+             * Checkpoints should have a slight delay before respawning.
+             * @override
+             */
+            respawnDelay: 1,
+
+            /**
+             * Checkpoint should only be triggered occasionally.
+             * @override
+             * @default
+             */
+            wait: 1,
+
+            /**
+             * Checkpoint should always respawn entities.
+             * @override
+             * @default
+             */
+            duration: -1,
+
+            /**
+             * Checkpoint can be triggered repeatedly.
+             * @override
+             * @default
+             */
+            once: false,
+
+            /**
+             * Checkpoint should not die after triggering.
+             * @override
+             * @default
+             */
+            suicidal: false,
+
+            /**
+             * Checkpoint spawns entities right in middle.
+             * @override
+             * @default
+             */
+            spawnAtRandomPosition: false,
+
+            /**
+             * Checkpoint spawns entities at bottom of checkpoint area.
+             * @override
+             * @default
+             */
+            spawnAtSide: _c.TOP_DOWN ? null : {
+                x: 0,
+                y: 1
+            },
+
+            /**
+             * Initializes checkpoint types.
+             * &lt;br>- adds {@link ig.EntityExtended.TYPE.CHECKPOINT} to {@link ig.EntityExtended#type}
+             * @override
+             **/
+            initTypes: function() {
+
+                this.parent();
+
+                _ut.addType(ig.EntityExtended, this, 'type', "CHECKPOINT");
+
+            },
+
+            /**
+             * Does spawner activate and links triggering entity as well as, if {@link ig.Checkpoint#restorative}, restores its stats.
+             * @override
+             **/
+            activate: function(entity) {
+
+                this.parent(entity);
+
+                if (entity instanceof ig.Character) {
+
+                    // link entity
+
+                    this.linkSpawned(entity);
+
+                    // restore
+
+                    if (this.restorative) {
+
+                        entity.restoreStats(this);
+
+                    }
+
+                }
+
+            },
+
+            /**
+             * Does spawner activate and links triggering entity as well as, if {@link ig.EntityCheckpoint#restorativeSpawn}, restores its stats.
+             * @override
+             **/
+            spawned: function(entity) {
+
+                this.parent(entity);
+
+                // restore
+
+                if (this.restorativeSpawn) {
+
+                    entity.restoreStats(this);
+
+                }
+
+            }
+
+        });
+
+    });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Sat Aug 23 2014 15:06:41 GMT-0400 (EDT)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
